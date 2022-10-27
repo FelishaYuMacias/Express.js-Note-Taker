@@ -70,7 +70,7 @@ app.post('/api/notes/',(req,res)=>{
     })
 })
 //GET request to click on specific listed notes
-app.get('/api/notes/:title',(req,res)=>{
+app.get('/api/notes/:id',(req,res)=>{
     fs.readFile("./db/db.json","utf-8",(err,data)=>{
         if(err){
             console.log(err);
@@ -93,10 +93,10 @@ app.get('/api/notes/:title',(req,res)=>{
         }
     })
 })
-// catch all for all unhandled routes
+// catch all for all unhandled routes.-Sends back to homepage
 app.get("*", (req, res) => {
-  res.send("not a valid route!");
-});
+        res.sendFile(path.join(__dirname, "./public/index.html"));
+      });
 
 //tells my server where to looks for requests
 app.listen(PORT, () => {
