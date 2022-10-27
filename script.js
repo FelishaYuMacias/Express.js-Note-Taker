@@ -25,7 +25,74 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
-
+//GET request to api/notes returns db.json
+app.get('/api/notes',(req,res)=>{
+    fs.readFile("./db/db.json","utf-8",(err,data)=>{
+        if(err){
+            console.log(err);
+            res.status(500).json({
+                msg:"oh no!",
+                err:err
+            })
+        } else {
+            const dataArr = JSON.parse(data);
+            res.json(dataArr)
+        }
+    })
+})
+// POST request to save notes to db
+app.post('/api/notes/',(req,res)=>{
+    fs.readFile("./db/db.json","utf-8",(err,data)=>{
+        if(err){
+            console.log(err);
+            res.status(500).json({
+                msg:"Oh shucks!",
+                err:err
+            })
+        } else {
+            const dataArr = JSON.parse(data);
+            dataArr.push(req.body);
+            fs.writeFile("./db/db.json",JSON.stringify(dataArr,null,4),(err,data)=>{
+                if(err){
+                    console.log(err);
+                    res.status(500).json({
+                        msg:"Oh shucks!",
+                        err:err
+                    })
+                }
+                else {
+                    res.json({
+                        msg:"Note successfully added!"
+                    })
+                }
+            })
+        }
+    })
+})
+//GET request to click on specific listed notes
+app.get('/api/notes/:title',(req,res)=>{
+    fs.readFile("./db/db.json","utf-8",(err,data)=>{
+        if(err){
+            console.log(err);
+            res.status(500).json({
+                msg:"Oh shucks!",
+                err:err
+            })
+        } else {
+            const dataArr = JSON.parse(data);
+            console.log(req.params.id);
+            for (let i = 0; i < dataArr.length; i++) {
+                const note = dataArr[i];
+                if(note.title==req.params.id) {
+                    return res.json(note)
+                }
+            }
+            res.status(404).json({
+                msg:"note not found!"
+            })
+        }
+    })
+})
 // catch all for all unhandled routes
 app.get("*", (req, res) => {
   res.send("not a valid route!");

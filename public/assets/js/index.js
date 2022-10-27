@@ -21,6 +21,17 @@ const show = (elem) => {
 const hide = (elem) => {
   elem.style.display = 'none';
 };
+//making existing notes show up on page
+fetch("/api/notes").then(res=>{
+  return res.json()
+}).then(data=>{
+  console.log(data);
+  data.forEach(note=>{
+      const newLi = document.createElement('li');
+      newLi.innerHTML =`</strong>${note.title}`;
+      noteList.append(newLi)
+  })
+})
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
