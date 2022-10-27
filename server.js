@@ -85,6 +85,7 @@ app.get('/api/notes/:id',(req,res)=>{
                 const note = dataArr[i];
                 if(note.title==req.params.id) {
                     return res.json(note)
+                    
                 }
             }
             res.status(404).json({
