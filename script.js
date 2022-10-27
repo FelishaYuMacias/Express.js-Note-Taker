@@ -15,8 +15,8 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const noteRoutes  = require("./routes/notes")
-app.use("/notes",noteRoutes);
+// const noteRoutes  = require("./routes/notes")
+// app.use("/notes",noteRoutes);
 
 
 // GET reuquest to /, serves html page
