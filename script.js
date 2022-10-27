@@ -15,11 +15,12 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// const noteRoutes  = require("./routes/notes")
-// app.use("/notes",noteRoutes);
+// GET request to /notes, serves notes page
+app.get("/notes", (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/notes.html"));
+  });
 
-
-// GET reuquest to /, serves html page
+// GET request to /, serves html page
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
