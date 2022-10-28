@@ -1,34 +1,12 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text"
+        "title": "Adding a note",
+        "text": "Click the plus button. \nType your Title.\nType your note.\nClick Save.",
+        "id": "c2801de8-e527-4dab-921b-1a4ab050da1e"
     },
     {
-        "title": "Note Test",
-        "text": "I am testing this note thing."
-    },
-    {
-        "title": "Test Again",
-        "text": "Just testing again."
-    },
-    {
-        "title": "New Note",
-        "text": "Writing text"
-    },
-    {
-        "title": "Testing",
-        "text": "test again"
-    },
-    {
-        "title": "TestTest",
-        "text": "make sure i didn't break anything"
-    },
-    {
-        "title": "fsaef",
-        "text": "sCd"
-    },
-    {
-        "title": "Test",
-        "text": "trying again"
+        "title": "Deleting a note",
+        "text": "Click the red delete button.",
+        "id": "f32bb72f-8cbd-4fb6-aa54-b27c2da75a00"
     }
 ]

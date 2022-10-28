@@ -96,6 +96,53 @@ app.get('/api/notes/:id',(req,res)=>{
         }
     })
 })
+
+//bounus delete when hit button
+app.delete("/api/notes/:id", (req, res) => {
+    const deleteId = req.params.id;
+    fs.readFile("./db/db.json", "utf-8", (err, data) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json({
+          msg: "Oh schucks!",
+          err: err,
+        });
+      } else {
+        const dataArr = JSON.parse(data);      
+        //find and remove item using index from the array
+        let index = -1;
+        for (let i=0; i<dataArr.length;i++){
+          if (dataArr[i].id === deleteId) {
+            index = i;
+            break;
+          }
+        }
+        if (index !== -1) {
+          //delete from array
+          dataArr.splice(index,1);
+        }
+        fs.writeFile(
+          "./db/db.json",
+          JSON.stringify(dataArr, null, 4),
+          (err, data) => {
+            if (err) {
+              console.log(err);
+              res.status(500).json({
+                msg: "Oh schucks!",
+                err: err,
+              });
+            } else {
+              res.json({
+                msg: "Note deleted!",
+              });
+            }
+          }
+        );
+      }
+    });
+    
+  })
+
 // catch all for all unhandled routes.-Sends back to homepage
 app.get("*", (req, res) => {
         res.sendFile(path.join(__dirname, "./public/index.html"));
