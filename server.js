@@ -3,7 +3,7 @@ const express = require("express");
 // instantianting a new express server
 const app = express();
 //importing uuid packages
-const { v4: uuidv4 } = require('uuid')
+const uuid = require('uuid')
 // selecting network port
 const PORT = process.env.PORT || 3000;
 // importing path package from standard library
@@ -22,7 +22,7 @@ app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/notes.html"));
   });
 
-// GET request to /, serves html page
+// GET request to /, serves home page
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
@@ -37,8 +37,7 @@ app.get('/api/notes',(req,res)=>{
                 err:err
             })
         } else {
-            const dataArr = JSON.parse(data);
-            res.json(dataArr)
+            res.json(JSON.parse(data))
         }
     })
 })
@@ -48,31 +47,33 @@ app.post('/api/notes/',(req,res)=>{
         if(err){
             console.log(err);
             res.status(500).json({
-                msg:"Oh shucks!",
+                msg:"oh no!",
                 err:err
             })
-        } else {
+        } else {  
             const dataArr = JSON.parse(data);
+            req.body.id =uuid.v4();
             dataArr.push(req.body);
             fs.writeFile("./db/db.json",JSON.stringify(dataArr,null,4),(err,data)=>{
                 if(err){
                     console.log(err);
                     res.status(500).json({
-                        msg:"Oh shucks!",
+                        msg:"oh no!",
                         err:err
-                    })
-                }
-                else {
+                    });
+                }else {
                     res.json({
-                        msg:"Note successfully added!"
-                    })
+                      msg: "successfully added your note!",
+                    });
                 }
-            })
-        }
-    })
-})
+              }
+            );
+          }
+        });
+      });
+  
 //GET request to click on specific listed notes
-app.get('/notes/:id',(req,res)=>{
+app.get('/api/notes/:id',(req,res)=>{
     fs.readFile("./db/db.json","utf-8",(err,data)=>{
         if(err){
             console.log(err);
@@ -84,9 +85,9 @@ app.get('/notes/:id',(req,res)=>{
             const dataArr = JSON.parse(data);
             console.log(req.params.id);
             for (let i = 0; i < dataArr.length; i++) {
-                const activeNote = dataArr[i];
-                if(activeNote[i]==req.params.id) {
-                    return (activeNote.id)
+                const id = dataArr[i];
+                if(id[i]==req.params.id) {
+                    return (id)
                 }
             }
             res.status(404).json({
