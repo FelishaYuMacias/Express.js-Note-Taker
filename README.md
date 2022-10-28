@@ -52,6 +52,7 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 ## Usage
 
 * Click on deployed link below
+https://felishas-note-taker-express-js.herokuapp.com/notes
 
 * Click Get Started.
 
