@@ -5,8 +5,13 @@
         "id": "c2801de8-e527-4dab-921b-1a4ab050da1e"
     },
     {
+        "title": "Viewing a note",
+        "text": "Click on the notes title in the left to view in the right.",
+        "id": "577e96ff-7bc0-46c3-93de-ad8b982a47cf"
+    },
+    {
         "title": "Deleting a note",
-        "text": "Click the red delete button.",
-        "id": "f32bb72f-8cbd-4fb6-aa54-b27c2da75a00"
+        "text": "Click red delete button.",
+        "id": "4ad07384-ea96-485d-a51e-683df3f410cb"
     }
 ]
