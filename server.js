@@ -2,6 +2,8 @@
 const express = require("express");
 // instantianting a new express server
 const app = express();
+//importing uuid packages
+const { v4: uuidv4 } = require('uuid')
 // selecting network port
 const PORT = process.env.PORT || 3000;
 // importing path package from standard library
@@ -70,7 +72,7 @@ app.post('/api/notes/',(req,res)=>{
     })
 })
 //GET request to click on specific listed notes
-app.get('/api/notes/:id',(req,res)=>{
+app.get('/notes/:id',(req,res)=>{
     fs.readFile("./db/db.json","utf-8",(err,data)=>{
         if(err){
             console.log(err);
@@ -82,10 +84,9 @@ app.get('/api/notes/:id',(req,res)=>{
             const dataArr = JSON.parse(data);
             console.log(req.params.id);
             for (let i = 0; i < dataArr.length; i++) {
-                const note = dataArr[i];
-                if(note.title==req.params.id) {
-                    return res.json(note)
-                    
+                const activeNote = dataArr[i];
+                if(activeNote[i]==req.params.id) {
+                    return (activeNote.id)
                 }
             }
             res.status(404).json({
